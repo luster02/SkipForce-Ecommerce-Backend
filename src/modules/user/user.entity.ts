@@ -13,6 +13,8 @@ import {
 import { ObjectType, Field } from '@nestjs/graphql'
 import { UserDetails } from './user.details.entity';
 import { Role } from '../role/role.entity';
+import { Shop } from '../shop/shop.entity'
+import { Gallery } from '../gallery/gallery.entity'
 
 @ObjectType()
 @Entity('users')
@@ -42,6 +44,12 @@ export class User extends BaseEntity {
   @ManyToMany(type => Role, role => role.users, { eager: true })
   @JoinTable({ name: 'user_roles' })
   roles: Role[];
+
+  @OneToOne(type => Shop, shop => shop.user)
+  shop: Shop
+
+  @OneToOne(type=> Gallery, gallery => gallery.user, {eager: true, onDelete: 'CASCADE'})
+  gallery: Gallery
 
   @Field()
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
