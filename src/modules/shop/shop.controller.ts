@@ -29,11 +29,4 @@ export class ShopController {
         await this._shopService.update(id, body)
         return { ok: true, data: 'updated' }
     }
-
-    @Delete(':id')
-    @HttpCode(200)
-    async deleteShop(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
-        await this._shopService.delete(id)
-        return { ok: true, data: 'deleted' }
-    }
 }

@@ -4,6 +4,7 @@ import { CustomerRepository } from './customer.repository';
 import { CustomerDetailRepository } from './customer.detail.repository';
 import { Customer } from './customer.entity';
 import { CustomerDetail } from './customer.detail.entity';
+import { CustomerDetailDto } from './dto/customer.detail.dto'
 
 @Injectable()
 export class CustomerService {
@@ -27,7 +28,7 @@ export class CustomerService {
         return customers
     }
 
-    async update(id: number, userData: CustomerDetail): Promise<void> {
+    async update(id: number, userData: CustomerDetailDto): Promise<void> {
         const details: CustomerDetail = await this._customerDetailRepository.findOne(id)
         if (!details) throw new NotFoundException();
         await this._customerDetailRepository.update(id, userData)

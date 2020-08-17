@@ -5,6 +5,7 @@ import { CustomerController } from './customer.controller';
 import { CustomerRepository } from './customer.repository'
 import { CustomerDetailRepository } from './customer.detail.repository'
 import { CustomerAuthModule } from '../auth/customer-auth/customer.auth.module'
+import { CustomerResolver } from './customer.resolver'
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { CustomerAuthModule } from '../auth/customer-auth/customer.auth.module'
     ]),
     CustomerAuthModule
   ],
-  providers: [CustomerService],
+  providers: [CustomerService, CustomerResolver],
   controllers: [CustomerController]
 })
 export class CustomerModule { }

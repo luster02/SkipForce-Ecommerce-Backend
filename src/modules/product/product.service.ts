@@ -36,7 +36,7 @@ export class ProductService {
         return product
     }
 
-    async update(id: number, productData: Product): Promise<void> {
+    async update(id: number, productData: ProductDto): Promise<void> {
         if (!id) throw new BadRequestException('product id must be sent');
         const product: Product = await this._productRepository.findOne(id)
         if (!product) throw new NotFoundException();

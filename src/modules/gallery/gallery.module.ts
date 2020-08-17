@@ -4,10 +4,11 @@ import { GalleryService } from './gallery.service';
 import { GalleryController } from './gallery.controller';
 import { GalleryRepository } from './gallery.repository'
 import { CloudinaryModule } from '../../cloudinary/cloudinary.module'
+import { GalleryResolver } from './gallery.resolver'
 
 @Module({
   imports: [TypeOrmModule.forFeature([GalleryRepository]), CloudinaryModule],
-  providers: [GalleryService],
+  providers: [GalleryService, GalleryResolver],
   controllers: [GalleryController]
 })
 export class GalleryModule { }

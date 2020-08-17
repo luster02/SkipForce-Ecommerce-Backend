@@ -9,6 +9,7 @@ import { CustomerJwtStrategy } from './strategies/jwt.strategy'
 import { ConfigService } from '../../../config/config.service';
 import { ConfigModule } from '../../../config/config.module';
 import { Configuration } from '../../../config/config.keys';
+import { CustomerAuthResolver } from './customer-auth.resolver'
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { Configuration } from '../../../config/config.keys';
     }),
   ],
   controllers: [CustomerAuthController],
-  providers: [CustomerAuthService, ConfigService, CustomerJwtStrategy],
+  providers: [CustomerAuthService, ConfigService, CustomerJwtStrategy, CustomerAuthResolver],
   exports: [CustomerJwtStrategy, PassportModule]
 })
 export class CustomerAuthModule { }
