@@ -7,8 +7,19 @@ import { Configuration } from './config/config.keys';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { AuthModule } from './modules/auth/user/auth.module';
 import { GraphqlModule } from './graphql/graphql.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { ShopModule } from './modules/shop/shop.module';
+import { ProductModule } from './modules/product/product.module';
+import { GalleryModule } from './modules/gallery/gallery.module';
+import { AssetModule } from './modules/asset/asset.module';
+import { CustomerModule } from './modules/customer/customer.module';
+import { StripeModule } from './payments/stripe/stripe.module';
+import { CustomerAuthModule } from './modules/auth/customer-auth/customer.auth.module';
+import { CartModule } from './modules/cart/cart.module';
+import { OrderModule } from './modules/order/order.module';
+import { AddressModule } from './modules/address/address.module';
 
 @Module({
   controllers: [AppController],
@@ -16,7 +27,13 @@ import { GraphqlModule } from './graphql/graphql.module';
   imports: [
     ConfigModule, DatabaseModule,
     UserModule, RoleModule,
-    AuthModule, GraphqlModule
+    AuthModule, GraphqlModule,
+    CloudinaryModule, ShopModule,
+    ProductModule, GalleryModule,
+    AssetModule, CustomerModule,
+    StripeModule, CustomerAuthModule,
+    CartModule, OrderModule,
+    AddressModule
   ],
 })
 export class AppModule {
