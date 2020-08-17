@@ -10,10 +10,12 @@ import {
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { Role } from './role.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('roles')
 @Controller('roles')
 export class RoleController {
-  constructor(private readonly _roleService: RoleService) {}
+  constructor(private readonly _roleService: RoleService) { }
 
   @Get(':id')
   async getRole(@Param('id', ParseIntPipe) id: number): Promise<Role> {
