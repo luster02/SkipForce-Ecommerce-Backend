@@ -7,6 +7,8 @@ import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { RoleRepository } from '../role/role.repository';
+import { UserDetailRepository } from './user.detail.repository'
+import { UserDetailDto } from './dto/user.detail.dto';
 
 @Injectable()
 export class UserService {
@@ -15,6 +17,8 @@ export class UserService {
     private readonly _userRepository: UserRepository,
     @InjectRepository(RoleRepository)
     private readonly _roleRepository: RoleRepository,
+    @InjectRepository(UserDetailRepository)
+    private readonly _userDetailRepository: UserDetailRepository
   ) { }
 
   async get(id: number): Promise<User> {
@@ -29,8 +33,10 @@ export class UserService {
     return users;
   }
 
-  async update(id: number, user: User): Promise<void> {
-    await this._userRepository.update(id, user);
+  async update(id: number, userData: UserDetailDto): Promise<void> {
+    const details: UserDetailDto = await this._userDetailRepository.findOne(id)
+    if (!details) throw new NotFoundException();
+    await this._userDetailRepository.update(id, userData)
   }
 
   async delete(id: number): Promise<void> {
