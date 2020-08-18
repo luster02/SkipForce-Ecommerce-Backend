@@ -1,0 +1,223 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserDetails {
+  id: Float!
+  name: String!
+  lastname: String!
+  user: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Role {
+  id: Float!
+  name: String!
+  description: String!
+  users: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Gallery {
+  id: Float!
+  folder: String!
+  user: User!
+  assets: [Asset!]!
+}
+
+type Asset {
+  id: Float!
+  url: String!
+  public_id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  gallery: Gallery!
+  product: Product!
+}
+
+type CustomerDetail {
+  id: Float!
+  phone: String!
+  status: String!
+  photoURL: String!
+  customer: Customer!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Address {
+  id: Float!
+  street: String!
+  number: Float!
+  postalCode: Float!
+  city: String!
+  customer: Customer!
+  order: Order!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Order {
+  id: Float!
+  totlaPrice: Float!
+  status: String!
+  address: Address!
+  products: [Product!]!
+  customer: Customer!
+  createdAt: DateTime!
+}
+
+type Customer {
+  id: Float!
+  username: String!
+  email: String!
+  password: String!
+  details: CustomerDetail!
+  cart: Cart!
+  orders: [Order!]!
+  address: Address!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Cart {
+  id: Float!
+  totlaPrice: Float!
+  customer: Customer!
+  products: [Product!]!
+}
+
+type Product {
+  id: Float!
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  shop: Shop!
+  assets: [Asset!]!
+  cart: Cart!
+  order: Order!
+}
+
+type Shop {
+  id: Float!
+  name: String!
+  description: String!
+  status: String!
+  products: [Product!]!
+  user: User!
+}
+
+type User {
+  id: Float!
+  username: String!
+  email: String!
+  password: String!
+  details: UserDetails!
+  roles: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type MutationResult {
+  success: Boolean
+  error: Boolean
+}
+
+type UserResponse {
+  success: Boolean
+  error: Boolean
+  token: String!
+}
+
+type Query {
+  user(id: Int!): User!
+  users: [User!]!
+  role(id: Int!): Role!
+  roles: [Role!]!
+  getShop(id: Int!): Shop!
+  getAllShops: [Shop!]!
+  getProduct(id: Int!): Product!
+  getAllProducts(id: Int!): [Product!]!
+  getOneGallery(id: Int!): Gallery!
+  getCart(id: Int!): Cart!
+  getAddress(id: Int!): Address!
+}
+
+type Mutation {
+  signup(userData: SignupDto!): MutationResult!
+  signin(userData: SigninDto!): UserResponse!
+  updateUser(userData: UserDetailDto!, id: Int!): MutationResult!
+  deleteUser(id: Int!): MutationResult!
+  createRole(roleData: RoleDto!): MutationResult!
+  updateRole(roleData: RoleDto!, id: Int!): MutationResult!
+  deleteRole(id: Int!): MutationResult!
+  updateShop(shopData: ShopDto!, id: Int!): MutationResult!
+  createProduct(productData: ProductDto!, id: Int!): MutationResult!
+  editProduct(productData: ProductDto!, id: Int!): MutationResult!
+  pushAssets(assets: [Int!]!, id: Int!): MutationResult!
+  pullAssets(assets: [Int!]!, id: Int!): MutationResult!
+  deleteProduct(id: Int!): MutationResult!
+  deleteGallery(id: Int!): MutationResult!
+  createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
+  addProduct(productId: Int!, id: Int!): MutationResult!
+  pullProduct(productId: Int!, id: Int!): MutationResult!
+  payCart(id: Int!): MutationResult!
+  signupCustomer(userData: SignupDto!): MutationResult!
+  signinCustomer(userData: SigninDto!): MutationResult!
+  updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
+}
+
+input SignupDto {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input SigninDto {
+  username: String!
+  password: String!
+}
+
+input UserDetailDto {
+  name: String!
+  lastname: String!
+}
+
+input RoleDto {
+  name: String!
+  description: String!
+}
+
+input ShopDto {
+  name: String!
+  description: String!
+  status: String!
+}
+
+input ProductDto {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+}
+
+input GalleryDto {
+  folder: String!
+}
+
+input AddressDto {
+  street: String!
+  number: Float!
+  postalCode: Float!
+  city: String!
+}
