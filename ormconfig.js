@@ -6,7 +6,7 @@ module.exports = {
   "port": process.env.DB_PORT,
   "database": process.env.DATABASE,
   "entities": ['dist/**/*.entity.js'],
-  "migrations": ["dist/database/migrations/.js"],
+  "migrations": ["dist/database/migrations/*.js"],
   "migrationsRun": true,
   "cli": {
     "migrationsDir": "src/database/migrations"
