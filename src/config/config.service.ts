@@ -19,6 +19,18 @@ export class ConfigService {
     } else {
       this.envConfig = {
         PORT: process.env.PORT,
+        HOST: process.env.HOST,
+        USERNAME: process.env.USERNAME,
+        PASSWORD: process.env.PASSWORD,
+        DATABASE: process.env.DATABASE,
+        JWT_SECRET: process.env.JWT_SECRET,
+        JWT_SECRET_CUSTOMER: process.env.JWT_SECRET_CUSTOMER,
+        DB_TYPE: process.env.DB_TYPE,
+        DB_PORT: process.env.DB_PORT,
+        CLOUD_NAME: process.env.CLOUD_NAME,
+        API_KEY: process.env.API_KEY,
+        API_SECRET: process.env.API_SECRET,
+        STRIPE_KEY: process.env.STRIPE_KEY,
       };
     }
   }
