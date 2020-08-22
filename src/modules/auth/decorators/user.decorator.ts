@@ -1,8 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { UserDto } from '../../user/dto/user.dto';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { IJwtPayload } from '../user/jwt-payload.interface'
 
-export const GetUser = createParamDecorator(
+export const GetUser = createParamDecorator<IJwtPayload>(
   (data, req): UserDto => {
     return req.user;
   },

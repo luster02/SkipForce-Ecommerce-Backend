@@ -2,15 +2,18 @@ import {
     Controller, Get, HttpCode,
     Param, ParseIntPipe, Post,
     UsePipes, ValidationPipe,
-    Delete, UseInterceptors, UploadedFile
+    Delete, UseInterceptors, UploadedFile, UseGuards
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express'
 import { AssetService } from './asset.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { multerOptions } from '../../shared/multer.storage'
-import { ApiTags } from '@nestjs/swagger';
+
 
 @ApiTags('asset')
+@UseGuards(AuthGuard())
 @Controller('asset')
 export class AssetController {
     constructor(private readonly _assetService: AssetService) { }
