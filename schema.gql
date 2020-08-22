@@ -142,15 +142,17 @@ type UserResponse {
 type Query {
   user(id: Int!): User!
   users: [User!]!
+  currentUser: User!
   role(id: Int!): Role!
   roles: [Role!]!
   getShop(id: Int!): Shop!
   getAllShops: [Shop!]!
   getProduct(id: Int!): Product!
-  getAllProducts(id: Int!): [Product!]!
+  getAllProducts(gallery_id: Int!): [Asset!]!
   getOneGallery(id: Int!): Gallery!
   getCart(id: Int!): Cart!
   getAddress(id: Int!): Address!
+  getAsset(id: Int!): Asset!
 }
 
 type Mutation {
