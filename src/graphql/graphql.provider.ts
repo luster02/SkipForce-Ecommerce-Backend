@@ -10,6 +10,7 @@ import { CustomerResolver } from '../modules/customer/customer.resolver'
 import { CartModule } from '../modules/cart/cart.module'
 import { CustomerAuthModule } from '../modules/auth/customer-auth/customer.auth.module'
 import { AddressModule } from '../modules/address/address.module'
+import { AssetModule } from '../modules/asset/asset.module'
 
 export const graphQLProvider = [
     GraphQLModule.forRoot({
@@ -20,7 +21,7 @@ export const graphQLProvider = [
             ProductModule, OrderRepository,
             GalleryModule, CustomerResolver,
             CartModule, CustomerAuthModule,
-            AddressModule
+            AddressModule, AssetModule
         ],
         context: ({ req }) => ({ req })
     })
