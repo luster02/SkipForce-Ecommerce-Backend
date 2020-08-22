@@ -6,10 +6,10 @@ import {
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from '../role/decorators/role.decorator';
-import { RoleGuard } from '../role/guards/role.guard';
 import { UserDetailDto } from './dto/user.detail.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { GetUser } from '../auth/decorators/user.decorator'
+import { IJwtPayload } from '../auth/user/jwt-payload.interface'
 
 @ApiTags('user')
 @UseGuards(AuthGuard())
@@ -18,11 +18,14 @@ export class UserController {
   constructor(private readonly _userService: UserService) { }
 
   @Get(':id')
-  @Roles('ADMINISTRATOR')
-  @UseGuards(AuthGuard(), RoleGuard)
   async getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
     const user = await this._userService.get(id);
     return user;
+  }
+
+  @Get('current')
+  async currentUser(@GetUser() user: IJwtPayload): Promise<User> {
+    return await this._userService.get(user.id)
   }
 
   @Get()

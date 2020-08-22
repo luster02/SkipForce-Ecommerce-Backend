@@ -5,6 +5,8 @@ import { UserService } from './user.service'
 import { GqlAuthGuard } from '../auth/guards/graph.guard'
 import { MutationResult } from '../../graphql/interfaces'
 import { UserDetailDto } from './dto/user.detail.dto'
+import { CurrentUserGraph } from '../auth/decorators/user.decorator'
+import { IJwtPayload } from '../auth/user/jwt-payload.interface'
 
 @Resolver(of => User)
 @UseGuards(GqlAuthGuard)
@@ -19,6 +21,11 @@ export class UserResolver {
     @Query(returns => [User])
     async users(): Promise<User[]> {
         return await this._userService.getAll()
+    }
+
+    @Query(returns => User)
+    async currentUser(@CurrentUserGraph() user: IJwtPayload): Promise<User> {
+        return await this._userService.get(user.id)
     }
 
     @Mutation(returns => MutationResult)
