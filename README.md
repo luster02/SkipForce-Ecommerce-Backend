@@ -1,3 +1,5 @@
+[![SkipForce-Ecommerce-Backend](https://circleci.com/gh/luster02/SkipForce-Ecommerce-Backend.svg?style=svg)](https://app.circleci.com/pipelines/github/luster02/SkipForce-Ecommerce-Backend/12/workflows/6d5c6124-9062-4916-82d1-db7d4871b496/jobs/13)
+
 # Ecommerce Backend skipForce (NestJS)
 
 ### Introduction
@@ -15,23 +17,6 @@ skipForce is an alternative to build a functional ecommerce in a simple way.
 
     npm install && nest update
 
-
-##### Create orm config file and config with next: 
-```
-{
-  "type": "database_type",
-  "username": "database_username",
-  "password": "database_password",
-  "host": "localhost",
-  "port": 5432,
-  "database": "database_name",
-  "entities": ["src/**/**/*.entity{.ts,.js}"],
-  "migrations": ["src/database/migrations/*{.ts,.js}"],
-  "cli": {
-    "migrationsDir": "src/database/migrations"
-  }
-}
-```
 ##### Create .env file
 ```
 PORT=[API_port]
