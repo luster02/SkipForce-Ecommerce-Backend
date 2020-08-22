@@ -57,6 +57,7 @@
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
+    "@golevelup/nestjs-testing": "^0.1.2",
     "@nestjs/testing": "^7.4.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/dotenv": "^8.2.0",
