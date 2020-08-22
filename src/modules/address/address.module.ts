@@ -4,9 +4,10 @@ import { AddressService } from './address.service';
 import { AddressController } from './address.controller';
 import { AddressRepository } from './address.repository'
 import { AddressResolver } from './address.resolver'
+import { CustomerAuthModule } from '../auth/customer-auth/customer.auth.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AddressRepository])],
+  imports: [TypeOrmModule.forFeature([AddressRepository]), CustomerAuthModule],
   providers: [AddressService, AddressResolver],
   controllers: [AddressController]
 })

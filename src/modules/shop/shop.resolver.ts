@@ -1,8 +1,10 @@
 import { Resolver, Args, Query, Int, Mutation } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
 import { Shop } from './shop.entity'
 import { ShopDto } from './dto/shop.dto'
 import { ShopService } from './shop.service'
 import { MutationResult } from '../../graphql/interfaces/result.interface'
+import { GqlAuthGuard } from '../auth/guards/graph.guard'
 
 @Resolver(of => Shop)
 export class ShopResolver {
@@ -18,6 +20,7 @@ export class ShopResolver {
         return await this._shopService.getAll()
     }
 
+    @UseGuards(GqlAuthGuard)
     @Mutation(returns => MutationResult)
     async updateShop(
         @Args('id', { type: () => Int }) id: number,

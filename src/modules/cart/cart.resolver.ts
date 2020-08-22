@@ -1,8 +1,11 @@
 import { Resolver, Args, Query, Int, Mutation } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
 import { CartService } from './cart.service'
 import { Cart } from './cart.entity'
 import { MutationResult, CartResponse } from '../../graphql/interfaces'
+import { GqlAuthGuard } from '../auth/guards/graph.guard'
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Cart)
 export class CartResolver {
     constructor(private readonly _cartService: CartService) { }

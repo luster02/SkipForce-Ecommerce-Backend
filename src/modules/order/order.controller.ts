@@ -1,13 +1,15 @@
 import {
     Controller, Get, HttpCode,
     Param, ParseIntPipe, Post,
-    Patch, Body
+    Patch, Body, UseGuards
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('order')
+@UseGuards(AuthGuard())
 @Controller('order')
 export class OrderController {
     constructor(private readonly _orderService: OrderService) { }

@@ -3,7 +3,12 @@ import { CustomerService } from './customer.service'
 import { Customer } from './customer.entity'
 import { CustomerDetailDto } from './dto/customer.detail.dto'
 import { MutationResult } from '../../graphql/interfaces'
+import { UseGuards } from '@nestjs/common'
+import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { CurrentUserGraph } from '../auth/decorators/user.decorator'
+import { IJwtPayload } from '../auth/customer-auth/jwt-payload.interface'
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Customer)
 export class CustomerResolver {
     constructor(private readonly _customerService: CustomerService) { }
@@ -13,6 +18,13 @@ export class CustomerResolver {
         @Args('id', { type: () => Int }) id: number
     ): Promise<Customer> {
         return await this._customerService.get(id)
+    }
+
+    @Query(returns => Customer)
+    async currentCustomer(
+        @CurrentUserGraph() customer: IJwtPayload
+    ): Promise<Customer> {
+        return await this._customerService.get(customer.id)
     }
 
     @Query(returns => [Customer])

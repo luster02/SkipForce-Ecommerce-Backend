@@ -1,8 +1,14 @@
-import { Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Body, Post } from '@nestjs/common';
+import {
+    Controller, Get, HttpCode,
+    Param, ParseIntPipe, Patch,
+    Body, Post, UseGuards
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { CartService } from './cart.service'
 import { CustomResponse } from '../../interfaces/Response.interface';
 
+@UseGuards(AuthGuard())
 @ApiTags('cart')
 @Controller('cart')
 export class CartController {

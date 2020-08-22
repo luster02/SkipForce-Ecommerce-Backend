@@ -1,10 +1,12 @@
-import { Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Body } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Body, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AddressService } from './address.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { AddressDto } from './dto/address.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('address')
+@UseGuards(AuthGuard())
 @Controller('address')
 export class AddressController {
     constructor(private readonly _addressService: AddressService) { }

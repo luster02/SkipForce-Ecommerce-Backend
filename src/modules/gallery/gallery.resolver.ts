@@ -3,7 +3,10 @@ import { GalleryService } from './gallery.service'
 import { Gallery } from './gallery.entity'
 import { GalleryDto } from './dto/gallery.dto'
 import { MutationResult } from '../../graphql/interfaces'
+import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { UseGuards } from '@nestjs/common'
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Gallery)
 export class GalleryResolver {
     constructor(private readonly _galleryService: GalleryService) { }

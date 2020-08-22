@@ -3,23 +3,31 @@ import {
     Param, Patch, Delete, Body,
     ParseIntPipe, UseGuards
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { CustomerService } from './customer.service';
 import { CustomResponse } from '../../interfaces/Response.interface'
 import { CustomerDetail } from './customer.detail.entity';
-import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../auth/decorators/user.decorator'
+import { IJwtPayload } from '../auth/customer-auth/jwt-payload.interface'
 
+@UseGuards(AuthGuard())
 @ApiTags('customer')
 @Controller('customer')
 export class CustomerController {
     constructor(private readonly _customerService: CustomerService) { }
 
-    @UseGuards(AuthGuard())
     @Get(':id')
     @HttpCode(200)
     async getCustomer(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
         const customer = await this._customerService.get(id)
         return { ok: true, data: customer }
+    }
+
+    @Get('/current')
+    async getCurrentCustomer(@GetUser() customer: IJwtPayload): Promise<CustomResponse> {
+        const data = await this._customerService.get(customer.id)
+        return { ok: true, data }
     }
 
     @Get()

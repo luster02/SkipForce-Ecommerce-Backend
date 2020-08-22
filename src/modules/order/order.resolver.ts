@@ -2,7 +2,10 @@ import { Resolver, Args, Query, Int, Mutation } from '@nestjs/graphql'
 import { OrderService } from './order.service'
 import { Order } from './order.entity'
 import { MutationResult } from '../../graphql/interfaces'
+import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { UseGuards } from '@nestjs/common'
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Order)
 export class OrderResolver {
     constructor(private readonly _orderService: OrderService) { }
