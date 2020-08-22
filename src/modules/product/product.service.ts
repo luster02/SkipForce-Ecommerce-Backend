@@ -22,8 +22,8 @@ export class ProductService {
         return product
     }
 
-    async getAll(id: number): Promise<Product[]> {
-        const products: Product[] = await this._productRepository.find({ where: { shop: id } })
+    async getAll(): Promise<Product[]> {
+        const products: Product[] = await this._productRepository.find()
         if (!products) throw new NotFoundException();
         return products
     }

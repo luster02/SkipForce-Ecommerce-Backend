@@ -2,13 +2,14 @@ import {
     Controller, Get, HttpCode,
     Param, ParseIntPipe, Post,
     Body, UsePipes, ValidationPipe,
-    Patch, Delete
+    Patch, Delete, UseGuards
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { ProductDto } from './dto/product.dto';
 import { Product } from './product.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('products')
 @Controller('product')
@@ -24,11 +25,12 @@ export class ProductController {
 
     @Get('/all/:id')
     @HttpCode(200)
-    async getAllProducts(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
-        const products = await this._productService.getAll(id)
+    async getAllProducts(): Promise<CustomResponse> {
+        const products = await this._productService.getAll()
         return { ok: true, data: products }
     }
 
+    @UseGuards(AuthGuard())
     @Post(':id')
     @UsePipes(ValidationPipe)
     @HttpCode(201)
@@ -37,6 +39,7 @@ export class ProductController {
         return { ok: true, data: product }
     }
 
+    @UseGuards(AuthGuard())
     @Patch(':id')
     @HttpCode(200)
     async editProduct(@Param('id', ParseIntPipe) id: number, @Body() productData: Product): Promise<CustomResponse> {
@@ -44,6 +47,7 @@ export class ProductController {
         return { ok: true, data: 'updated' }
     }
 
+    @UseGuards(AuthGuard())
     @Patch('/push/:id')
     @HttpCode(200)
     async pushAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -51,6 +55,7 @@ export class ProductController {
         return { ok: true, data: 'pushed' }
     }
 
+    @UseGuards(AuthGuard())
     @Patch('/pull/:id')
     @HttpCode(200)
     async pullAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -58,6 +63,7 @@ export class ProductController {
         return { ok: true, data: 'pulled' }
     }
 
+    @UseGuards(AuthGuard())
     @Delete(':id')
     @HttpCode(200)
     async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
