@@ -5,14 +5,11 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   UpdateDateColumn,
   CreateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql'
 import { UserDetails } from './user.details.entity';
-import { Role } from '../role/role.entity';
 import { Shop } from '../shop/shop.entity'
 import { Gallery } from '../gallery/gallery.entity'
 
@@ -35,20 +32,16 @@ export class User extends BaseEntity {
   @Column({ type: 'varchar', nullable: false })
   password: string;
 
-  @Field(type => UserDetails, { nullable: false })
-  @OneToOne(type => UserDetails, { cascade: true, nullable: false, eager: true })
-  @JoinColumn({ name: 'detail_id' })
+  @Field(type => UserDetails)
+  @OneToOne(type => UserDetails, userDetails => userDetails.user, { cascade: true, nullable: false, eager: true })
   details: UserDetails;
 
-  @Field(type => Role, { nullable: false })
-  @ManyToMany(type => Role, role => role.users, { eager: true })
-  @JoinTable({ name: 'user_roles' })
-  roles: Role[];
-
-  @OneToOne(type => Shop, shop => shop.user)
+  @Field(type => Shop)
+  @OneToOne(type => Shop, shop => shop.user, { cascade: true, nullable: false, eager: true })
   shop: Shop
 
-  @OneToOne(type=> Gallery, gallery => gallery.user, {eager: true, onDelete: 'CASCADE'})
+  @Field(type => Gallery, { nullable: true })
+  @OneToOne(type => Gallery, gallery => gallery.user, { eager: true, nullable: false, onDelete: 'CASCADE' })
   gallery: Gallery
 
   @Field()

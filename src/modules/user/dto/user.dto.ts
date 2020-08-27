@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-import { RoleType } from '../../role/roletype.enum';
 import { UserDetails } from '../user.details.entity';
 import { InputType, Field } from '@nestjs/graphql';
 
@@ -16,10 +15,6 @@ export class UserDto {
   @Field()
   @IsNotEmpty()
   email: string;
-
-  @Field()
-  @IsNotEmpty()
-  roles: RoleType[];
 
   @Field() 
   @IsNotEmpty()
