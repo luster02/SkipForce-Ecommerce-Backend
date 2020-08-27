@@ -4,8 +4,8 @@
 
 type UserDetails {
   id: Float!
-  name: String!
-  lastname: String!
+  name: String
+  lastname: String
   user: User!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -16,18 +16,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Role {
-  id: Float!
-  name: String!
-  description: String!
-  users: User!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
 type Gallery {
   id: Float!
-  folder: String!
+  folder: String
   user: User!
   assets: [Asset!]!
 }
@@ -44,9 +35,9 @@ type Asset {
 
 type CustomerDetail {
   id: Float!
-  phone: String!
-  status: String!
-  photoURL: String!
+  name: String
+  lastname: String
+  phone: String
   customer: Customer!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -110,9 +101,9 @@ type Product {
 
 type Shop {
   id: Float!
-  name: String!
-  description: String!
-  status: String!
+  name: String
+  description: String
+  status: String
   products: [Product!]!
   user: User!
 }
@@ -123,7 +114,8 @@ type User {
   email: String!
   password: String!
   details: UserDetails!
-  roles: Role!
+  shop: Shop!
+  gallery: Gallery
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -143,8 +135,6 @@ type Query {
   user(id: Int!): User!
   users: [User!]!
   currentUser: User!
-  role(id: Int!): Role!
-  roles: [Role!]!
   getShop(id: Int!): Shop!
   getAllShops: [Shop!]!
   getProduct(id: Int!): Product!
@@ -160,9 +150,6 @@ type Mutation {
   signin(userData: SigninDto!): UserResponse!
   updateUser(userData: UserDetailDto!, id: Int!): MutationResult!
   deleteUser(id: Int!): MutationResult!
-  createRole(roleData: RoleDto!): MutationResult!
-  updateRole(roleData: RoleDto!, id: Int!): MutationResult!
-  deleteRole(id: Int!): MutationResult!
   updateShop(shopData: ShopDto!, id: Int!): MutationResult!
   createProduct(productData: ProductDto!, id: Int!): MutationResult!
   editProduct(productData: ProductDto!, id: Int!): MutationResult!
@@ -175,7 +162,7 @@ type Mutation {
   pullProduct(productId: Int!, id: Int!): MutationResult!
   payCart(id: Int!): MutationResult!
   signupCustomer(userData: SignupDto!): MutationResult!
-  signinCustomer(userData: SigninDto!): MutationResult!
+  signinCustomer(userData: SigninDto!): UserResponse!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
 }
 
@@ -193,11 +180,6 @@ input SigninDto {
 input UserDetailDto {
   name: String!
   lastname: String!
-}
-
-input RoleDto {
-  name: String!
-  description: String!
 }
 
 input ShopDto {
