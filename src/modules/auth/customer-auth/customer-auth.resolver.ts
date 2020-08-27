@@ -16,7 +16,7 @@ export class CustomerAuthResolver {
         return { success: true }
     }
 
-    @Mutation(returns => MutationResult)
+    @Mutation(returns => UserResponse)
     async signinCustomer(
         @Args('userData') userData: SigninDto
     ): Promise<UserResponse> {
