@@ -15,7 +15,7 @@ import { CustomerAuthResolver } from './customer-auth.resolver'
   imports: [
     TypeOrmModule.forFeature([CustomerAuthRepository]),
     PassportModule.register({
-      defaultStrategy: 'jwt',
+      defaultStrategy: 'CustomerStrategy',
     }),
     JwtModule.registerAsync({
       imports: [ConfigModule],

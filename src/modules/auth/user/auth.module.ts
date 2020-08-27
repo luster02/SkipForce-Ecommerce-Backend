@@ -15,7 +15,7 @@ import { Configuration } from '../../../config/config.keys';
   imports: [
     TypeOrmModule.forFeature([AuthRepository]),
     PassportModule.register({
-      defaultStrategy: 'jwt',
+      defaultStrategy: 'UserStrategy',
     }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
