@@ -1,13 +1,17 @@
 import { InputType, Field } from "@nestjs/graphql"
+import { IsString } from "class-validator"
 
 @InputType()
 export class CustomerDetailDto {
     @Field()
+    @IsString()
     phone: string
 
     @Field()
-    status: string
-
+    @IsString()
+    name:string
+    
     @Field()
-    photoURL: string
+    @IsString()
+    lastname:string
 }

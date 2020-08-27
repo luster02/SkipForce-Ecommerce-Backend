@@ -18,17 +18,17 @@ export class CustomerDetail extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
+    name: string
+
+    @Field({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
+    lastname: string
+
+    @Field({ nullable: true })
     @Column({ type: 'varchar', nullable: true })
     phone: string;
-
-    @Field()
-    @Column({ type: 'varchar', default: 'ACTIVE', length: 8 })
-    status: string;
-
-    @Field()
-    @Column({ type: 'varchar', nullable: true })
-    photoURL: string;
 
     @Field(type => Customer)
     @OneToOne(type => Customer, customer => customer.details, { onDelete: 'CASCADE' })
