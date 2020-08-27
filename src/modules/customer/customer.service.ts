@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CustomerRepository } from './customer.repository';
-import { CustomerDetailRepository } from './customer.detail.repository';
+import { CustomerRepository } from './repositories/customer.repository';
+import { CustomerDetailRepository } from './repositories/customer.detail.repository';
 import { Customer } from './customer.entity';
 import { CustomerDetail } from './customer.detail.entity';
 import { CustomerDetailDto } from './dto/customer.detail.dto'

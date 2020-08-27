@@ -3,11 +3,10 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './repositories/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { RoleRepository } from '../role/role.repository';
-import { UserDetailRepository } from './user.detail.repository'
+import { UserDetailRepository } from './repositories/user.detail.repository'
 import { UserDetailDto } from './dto/user.detail.dto';
 
 @Injectable()
@@ -15,8 +14,6 @@ export class UserService {
   constructor(
     @InjectRepository(UserRepository)
     private readonly _userRepository: UserRepository,
-    @InjectRepository(RoleRepository)
-    private readonly _roleRepository: RoleRepository,
     @InjectRepository(UserDetailRepository)
     private readonly _userDetailRepository: UserDetailRepository
   ) { }
@@ -45,13 +42,4 @@ export class UserService {
     await this._userRepository.delete(id);
   }
 
-  async setRoleToUser(userId: number, roleId: number) {
-    const userExist = await this._userRepository.findOne(userId);
-    if (!userExist) throw new NotFoundException();
-    const roleExist = await this._roleRepository.findOne(roleId);
-    if (!roleExist) throw new NotFoundException('Role does not exist');
-    userExist.roles.push(roleExist);
-    await this._userRepository.save(userExist);
-    return true;
-  }
 }
