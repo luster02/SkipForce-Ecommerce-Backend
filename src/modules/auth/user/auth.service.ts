@@ -11,7 +11,6 @@ import { AuthRepository } from './auth.repository';
 import { SignupDto, SigninDto } from '../dto';
 import { User } from '../../user/user.entity';
 import { IJwtPayload } from './jwt-payload.interface';
-import { RoleType } from '../../role/roletype.enum';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +38,6 @@ export class AuthService {
       id: user.id,
       email: user.email,
       username: user.username,
-      roles: user.roles.map(r => r.name as RoleType),
     };
 
     const token = await this._jwtService.sign(payload);
