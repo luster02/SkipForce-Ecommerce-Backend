@@ -5,15 +5,15 @@ import {
     Delete, UseInterceptors, UploadedFile, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express'
 import { AssetService } from './asset.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { multerOptions } from '../../shared/multer.storage'
+import { UserAuthGuard } from '../auth/guards/jwt.guard'
 
 
 @ApiTags('asset')
-@UseGuards(AuthGuard())
+@UseGuards(UserAuthGuard)
 @Controller('asset')
 export class AssetController {
     constructor(private readonly _assetService: AssetService) { }

@@ -3,9 +3,9 @@ import { UseGuards } from '@nestjs/common'
 import { CartService } from './cart.service'
 import { Cart } from './cart.entity'
 import { MutationResult, CartResponse } from '../../graphql/interfaces'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { CustomerAuthGuard } from '../auth/guards/graph.guard'
 
-@UseGuards(GqlAuthGuard)
+@UseGuards(CustomerAuthGuard)
 @Resolver(of => Cart)
 export class CartResolver {
     constructor(private readonly _cartService: CartService) { }

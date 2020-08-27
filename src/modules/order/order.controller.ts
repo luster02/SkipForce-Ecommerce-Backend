@@ -3,17 +3,17 @@ import {
     Param, ParseIntPipe, Post,
     Patch, Body, UseGuards
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { OrderService } from './order.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
-import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { UserAuthGuard, CustomerAuthGuard } from '../auth/guards/jwt.guard'
 
 @ApiTags('order')
-@UseGuards(AuthGuard())
 @Controller('order')
 export class OrderController {
     constructor(private readonly _orderService: OrderService) { }
 
+    @UseGuards(UserAuthGuard || CustomerAuthGuard)
     @Get(':id')
     @HttpCode(200)
     async getOrder(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
@@ -21,6 +21,7 @@ export class OrderController {
         return { ok: true, data: order }
     }
 
+    @UseGuards(UserAuthGuard || CustomerAuthGuard)
     @Get()
     @HttpCode(200)
     async getAll(): Promise<CustomResponse> {
@@ -28,6 +29,7 @@ export class OrderController {
         return { ok: true, data: oreders }
     }
 
+    @UseGuards(CustomerAuthGuard)
     @Post(':id')
     @HttpCode(201)
     async createOrder(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
@@ -35,6 +37,7 @@ export class OrderController {
         return { ok: true, data: 'created' }
     }
 
+    @UseGuards(UserAuthGuard)
     @Patch(':id')
     @HttpCode(200)
     async updateStatus(

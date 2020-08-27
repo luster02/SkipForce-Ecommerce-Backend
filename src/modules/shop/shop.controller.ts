@@ -2,11 +2,11 @@ import {
     Controller, Get, HttpCode, Param,
     ParseIntPipe, Patch, Body, UseGuards
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ShopService } from './shop.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { Shop } from './shop.entity';
-import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { UserAuthGuard } from '../auth/guards/jwt.guard';
 
 @ApiTags('shop')
 @Controller('shop')
@@ -27,7 +27,7 @@ export class ShopController {
         return { ok: true, data: shops }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Patch(':id')
     @HttpCode(200)
     async updateShop(@Param('id', ParseIntPipe) id: number, @Body() body: Shop): Promise<CustomResponse> {

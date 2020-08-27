@@ -3,9 +3,9 @@ import { UseGuards } from '@nestjs/common'
 import { AssetService } from './asset.service'
 import { Asset } from './asset.entity'
 import { MutationResult } from '../../graphql/interfaces/result.interface'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { UserAuthGuard } from '../auth/guards/graph.guard'
 
-@UseGuards(GqlAuthGuard)
+@UseGuards(UserAuthGuard)
 @Resolver(of => Asset)
 export class AssetResolver {
     constructor(private readonly _assetService: AssetService) { }

@@ -4,14 +4,14 @@ import {
     ParseIntPipe, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { CustomerService } from './customer.service';
 import { CustomResponse } from '../../interfaces/Response.interface'
 import { CustomerDetail } from './customer.detail.entity';
 import { GetUser } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/customer-auth/jwt-payload.interface'
+import { CustomerAuthGuard } from '../auth/guards/jwt.guard'
 
-@UseGuards(AuthGuard())
+@UseGuards(CustomerAuthGuard)
 @ApiTags('customer')
 @Controller('customer')
 export class CustomerController {

@@ -4,9 +4,9 @@ import { AddressService } from './address.service'
 import { Address } from './address.entity'
 import { AddressDto } from './dto/address.dto'
 import { MutationResult } from '../../graphql/interfaces'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { CustomerAuthGuard } from '../auth/guards/graph.guard'
 
-@UseGuards(GqlAuthGuard)
+@UseGuards(CustomerAuthGuard)
 @Resolver(of => Address)
 export class AddressResolver {
     constructor(private readonly _addressService: AddressService) { }

@@ -1,18 +1,18 @@
 import {
   Controller, Get, Param,
   Delete, ParseIntPipe, UseGuards,
-  Patch, Body, Post
+  Patch, Body
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { AuthGuard } from '@nestjs/passport';
+import { UserAuthGuard } from '../auth/guards/jwt.guard'
 import { UserDetailDto } from './dto/user.detail.dto';
-import { ApiTags } from '@nestjs/swagger';
 import { GetUser } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/user/jwt-payload.interface'
 
 @ApiTags('user')
-@UseGuards(AuthGuard())
+@UseGuards(UserAuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly _userService: UserService) { }
@@ -49,12 +49,4 @@ export class UserController {
     return true;
   }
 
-
-  @Post('setRole/:userId/:roleId')
-  async setRoleToUser(
-    @Param('userId', ParseIntPipe) userId: number,
-    @Param('roleId', ParseIntPipe) roleId: number,
-  ) {
-    return this._userService.setRoleToUser(userId, roleId);
-  }
 }

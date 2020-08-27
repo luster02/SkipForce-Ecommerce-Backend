@@ -4,11 +4,11 @@ import { Customer } from './customer.entity'
 import { CustomerDetailDto } from './dto/customer.detail.dto'
 import { MutationResult } from '../../graphql/interfaces'
 import { UseGuards } from '@nestjs/common'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { CustomerAuthGuard } from '../auth/guards/graph.guard'
 import { CurrentUserGraph } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/customer-auth/jwt-payload.interface'
 
-@UseGuards(GqlAuthGuard)
+@UseGuards(CustomerAuthGuard)
 @Resolver(of => Customer)
 export class CustomerResolver {
     constructor(private readonly _customerService: CustomerService) { }

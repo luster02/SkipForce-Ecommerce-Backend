@@ -2,14 +2,14 @@ import { Resolver, Args, Query, Int, Mutation } from '@nestjs/graphql'
 import { User } from './user.entity'
 import { UseGuards } from '@nestjs/common'
 import { UserService } from './user.service'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { UserAuthGuard } from '../auth/guards/graph.guard'
 import { MutationResult } from '../../graphql/interfaces'
 import { UserDetailDto } from './dto/user.detail.dto'
 import { CurrentUserGraph } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/user/jwt-payload.interface'
 
 @Resolver(of => User)
-@UseGuards(GqlAuthGuard)
+@UseGuards(UserAuthGuard)
 export class UserResolver {
     constructor(private readonly _userService: UserService) { }
 

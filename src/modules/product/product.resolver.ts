@@ -3,7 +3,7 @@ import { ProductService } from './product.service'
 import { Product } from './product.entity'
 import { ProductDto } from './dto/product.dto'
 import { MutationResult } from '../../graphql/interfaces'
-import { GqlAuthGuard } from '../auth/guards/graph.guard'
+import { UserAuthGuard } from '../auth/guards/graph.guard'
 import { UseGuards } from '@nestjs/common'
 
 @Resolver(of => Product)
@@ -22,7 +22,7 @@ export class ProductResolver {
         return await this._productService.getAll()
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async createProduct(
         @Args('id', { type: () => Int }) id: number,
@@ -32,7 +32,7 @@ export class ProductResolver {
         return { success: true }
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async editProduct(
         @Args('id', { type: () => Int }) id: number,
@@ -42,7 +42,7 @@ export class ProductResolver {
         return { success: true }
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async pushAssets(
         @Args('id', { type: () => Int }) id: number,
@@ -52,7 +52,7 @@ export class ProductResolver {
         return { success: true }
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async pullAssets(
         @Args('id', { type: () => Int }) id: number,
@@ -62,7 +62,7 @@ export class ProductResolver {
         return { success: true }
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async deleteProduct(
         @Args('id', { type: () => Int }) id: number

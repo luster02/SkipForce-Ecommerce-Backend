@@ -4,12 +4,12 @@ import {
     Body, UsePipes, ValidationPipe,
     Patch, Delete, UseGuards
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { ProductDto } from './dto/product.dto';
 import { Product } from './product.entity';
-import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { UserAuthGuard } from '../auth/guards/jwt.guard'
 
 @ApiTags('products')
 @Controller('product')
@@ -30,7 +30,7 @@ export class ProductController {
         return { ok: true, data: products }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Post(':id')
     @UsePipes(ValidationPipe)
     @HttpCode(201)
@@ -39,7 +39,7 @@ export class ProductController {
         return { ok: true, data: product }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Patch(':id')
     @HttpCode(200)
     async editProduct(@Param('id', ParseIntPipe) id: number, @Body() productData: Product): Promise<CustomResponse> {
@@ -47,7 +47,7 @@ export class ProductController {
         return { ok: true, data: 'updated' }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Patch('/push/:id')
     @HttpCode(200)
     async pushAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -55,7 +55,7 @@ export class ProductController {
         return { ok: true, data: 'pushed' }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Patch('/pull/:id')
     @HttpCode(200)
     async pullAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -63,7 +63,7 @@ export class ProductController {
         return { ok: true, data: 'pulled' }
     }
 
-    @UseGuards(AuthGuard())
+    @UseGuards(UserAuthGuard)
     @Delete(':id')
     @HttpCode(200)
     async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
