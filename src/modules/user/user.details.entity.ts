@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql'
 import { User } from './user.entity';
@@ -17,16 +18,17 @@ export class UserDetails extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'varchar', length: 50, nullable: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'varchar', nullable: true })
   lastname: string;
 
   @Field(type => User, { nullable: false })
-  @OneToOne(type => UserDetails, { onDelete: 'CASCADE' })
+  @OneToOne(type => User, user => user.details, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: User
 
   @Field()

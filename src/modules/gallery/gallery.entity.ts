@@ -18,7 +18,7 @@ export class Gallery extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Field()
+    @Field({nullable: true})
     @Column({ type: 'varchar', nullable: true })
     folder: string
 

@@ -18,15 +18,15 @@ export class Shop extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ type: 'varchar', length: 30, nullable: true })
     name: string
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ type: 'varchar', nullable: true })
     description: string
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ type: 'varchar', default: 'INACTIVE', nullable: true })
     status: string
 
