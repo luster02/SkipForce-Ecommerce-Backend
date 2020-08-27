@@ -6,7 +6,6 @@ import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './modules/user/user.module';
-import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/user/auth.module';
 import { GraphqlModule } from './graphql/graphql.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
@@ -25,14 +24,21 @@ import { AddressModule } from './modules/address/address.module';
   controllers: [AppController],
   providers: [AppService],
   imports: [
-    ConfigModule, DatabaseModule,
-    UserModule, RoleModule,
-    AuthModule, GraphqlModule,
-    CloudinaryModule, ShopModule,
-    ProductModule, GalleryModule,
-    AssetModule, CustomerModule,
-    StripeModule, CustomerAuthModule,
-    CartModule, OrderModule,
+    ConfigModule,
+    DatabaseModule,
+    UserModule,
+    AuthModule,
+    GraphqlModule,
+    CloudinaryModule,
+    ShopModule,
+    ProductModule,
+    GalleryModule,
+    AssetModule,
+    CustomerModule,
+    StripeModule,
+    CustomerAuthModule,
+    CartModule,
+    OrderModule,
     AddressModule
   ],
 })

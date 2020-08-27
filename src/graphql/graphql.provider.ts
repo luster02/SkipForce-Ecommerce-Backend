@@ -1,6 +1,5 @@
 import { GraphQLModule } from '@nestjs/graphql'
 import { UserModule } from '../modules/user/user.module'
-import { RoleModule } from '../modules/role/role.module';
 import { AuthModule } from '../modules/auth/user/auth.module'
 import { ShopModule } from '../modules/shop/shop.module'
 import { ProductModule } from '../modules/product/product.module'
@@ -16,12 +15,17 @@ export const graphQLProvider = [
     GraphQLModule.forRoot({
         autoSchemaFile: 'schema.gql',
         include: [
-            UserModule, RoleModule,
-            AuthModule, ShopModule,
-            ProductModule, OrderRepository,
-            GalleryModule, CustomerResolver,
-            CartModule, CustomerAuthModule,
-            AddressModule, AssetModule
+            UserModule, 
+            AuthModule, 
+            ShopModule,
+            ProductModule, 
+            OrderRepository,
+            GalleryModule, 
+            CustomerResolver,
+            CartModule, 
+            CustomerAuthModule,
+            AddressModule, 
+            AssetModule
         ],
         context: ({ req }) => ({ req })
     })
