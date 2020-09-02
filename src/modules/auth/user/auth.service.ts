@@ -3,6 +3,7 @@ import {
   ConflictException,
   NotFoundException,
   UnauthorizedException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,6 +25,8 @@ export class AuthService {
     const { username, email } = signupDto;
     const userExists = await this._authRepository.findOne({ where: [{ username }, { email }] });
     if (userExists) throw new ConflictException('username or email already exists');
+    const length = await this._authRepository.count()
+    if (length > 0) throw new InternalServerErrorException('you are already registered, log in')
     return this._authRepository.signup(signupDto);
   }
 
