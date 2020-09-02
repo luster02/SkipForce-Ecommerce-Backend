@@ -20,7 +20,7 @@ type Gallery {
   id: Float!
   folder: String
   user: User!
-  assets: [Asset!]!
+  assets: [Asset!]
 }
 
 type Asset {
@@ -30,7 +30,7 @@ type Asset {
   createdAt: DateTime!
   updatedAt: DateTime!
   gallery: Gallery!
-  product: Product!
+  product: Product
 }
 
 type CustomerDetail {
@@ -50,7 +50,7 @@ type Address {
   postalCode: Float!
   city: String!
   customer: Customer!
-  order: Order!
+  order: Order
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -72,7 +72,7 @@ type Customer {
   password: String!
   details: CustomerDetail!
   cart: Cart!
-  orders: [Order!]!
+  orders: [Order!]
   address: Address!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -94,9 +94,9 @@ type Product {
   createdAt: DateTime!
   updatedAt: DateTime!
   shop: Shop!
-  assets: [Asset!]!
+  assets: [Asset!]
   cart: Cart!
-  order: Order!
+  order: Order
 }
 
 type Shop {
@@ -104,7 +104,7 @@ type Shop {
   name: String
   description: String
   status: String
-  products: [Product!]!
+  products: [Product!]
   user: User!
 }
 
@@ -133,16 +133,20 @@ type UserResponse {
 
 type Query {
   user(id: Int!): User!
-  users: [User!]!
   currentUser: User!
   getShop(id: Int!): Shop!
-  getAllShops: [Shop!]!
   getProduct(id: Int!): Product!
-  getAllProducts(gallery_id: Int!): [Asset!]!
-  getOneGallery(id: Int!): Gallery!
+  getAllProducts: [Product!]!
   getCart(id: Int!): Cart!
+  getOrder(id: Int!): Order!
+  getAllOrders: [Order!]!
+  getOneGallery(id: Int!): Gallery!
+  getCustomer(id: Int!): Customer!
+  currentCustomer: Customer!
+  getAllCustomers: [Customer!]!
   getAddress(id: Int!): Address!
   getAsset(id: Int!): Asset!
+  getAllAssets(gallery_id: Int!): [Asset!]!
 }
 
 type Mutation {
@@ -156,13 +160,16 @@ type Mutation {
   pushAssets(assets: [Int!]!, id: Int!): MutationResult!
   pullAssets(assets: [Int!]!, id: Int!): MutationResult!
   deleteProduct(id: Int!): MutationResult!
-  deleteGallery(id: Int!): MutationResult!
-  createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
   addProduct(productId: Int!, id: Int!): MutationResult!
   pullProduct(productId: Int!, id: Int!): MutationResult!
   payCart(id: Int!): MutationResult!
   signupCustomer(userData: SignupDto!): MutationResult!
   signinCustomer(userData: SigninDto!): UserResponse!
+  createOrder(id: Int!): MutationResult!
+  updateStatus(status: String!, id: Int!): MutationResult!
+  deleteGallery(id: Int!): MutationResult!
+  createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
+  editUser(customerData: CustomerDetailDto!, id: Int!): MutationResult!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
 }
 
@@ -197,6 +204,12 @@ input ProductDto {
 
 input GalleryDto {
   folder: String!
+}
+
+input CustomerDetailDto {
+  phone: String!
+  name: String!
+  lastname: String!
 }
 
 input AddressDto {
