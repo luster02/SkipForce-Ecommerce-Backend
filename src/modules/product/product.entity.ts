@@ -46,7 +46,7 @@ export class Product extends BaseEntity {
     @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
     updatedAt: Date;
 
-    @Field(type => Shop)
+    @Field(type => Shop, { nullable: true })
     @ManyToOne(type => Shop, shop => shop.products, { onDelete: 'CASCADE' })
     shop: Shop
 
@@ -55,7 +55,7 @@ export class Product extends BaseEntity {
     @JoinTable({ name: 'product_assets' })
     assets: Asset[]
 
-    @Field(type => Cart, { nullable: false })
+    @Field(type => Cart, { nullable: true })
     @ManyToMany(type => Cart, cart => cart.products, { onDelete: 'CASCADE' })
     cart: Cart
 

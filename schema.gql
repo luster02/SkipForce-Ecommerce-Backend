@@ -93,9 +93,9 @@ type Product {
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  shop: Shop!
+  shop: Shop
   assets: [Asset!]
-  cart: Cart!
+  cart: Cart
   order: Order
 }
 
