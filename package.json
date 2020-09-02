@@ -1,6 +1,6 @@
 {
-  "name": "auth",
-  "version": "0.0.1",
+  "name": "skipforce",
+  "version": "0.0.6",
   "engines": {
     "node": "12.18.1"
   },
