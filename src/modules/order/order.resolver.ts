@@ -19,7 +19,7 @@ export class OrderResolver {
 
     @UseGuards(UserAuthGuard || CustomerAuthGuard)
     @Query(returns => [Order])
-    async getAll(): Promise<Order[]> {
+    async getAllOrders(): Promise<Order[]> {
         return await this._orderService.getAll()
     }
 

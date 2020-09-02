@@ -18,11 +18,6 @@ export class UserResolver {
         return await this._userService.get(id)
     }
 
-    @Query(returns => [User])
-    async users(): Promise<User[]> {
-        return await this._userService.getAll()
-    }
-
     @Query(returns => User)
     async currentUser(@CurrentUserGraph() user: IJwtPayload): Promise<User> {
         return await this._userService.get(user.id)

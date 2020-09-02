@@ -18,7 +18,7 @@ export class AssetResolver {
     }
 
     @Query(returns => [Asset])
-    async getAllProducts(
+    async getAllAssets(
         @Args('gallery_id', { type: () => Int }) gallery_id: number
     ): Promise<Asset[]> {
         return await this._assetService.getAll(gallery_id)

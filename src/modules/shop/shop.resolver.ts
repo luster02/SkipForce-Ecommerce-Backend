@@ -15,11 +15,6 @@ export class ShopResolver {
         return await this._shopService.get(id)
     }
 
-    @Query(returns => [Shop])
-    async getAllShops(): Promise<Shop[]> {
-        return await this._shopService.getAll()
-    }
-
     @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async updateShop(
