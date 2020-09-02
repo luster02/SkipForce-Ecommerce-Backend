@@ -39,7 +39,7 @@ export class Asset extends BaseEntity {
     @ManyToOne(type => Gallery, gallery => gallery.assets)
     gallery: Gallery
 
-    @Field(type => Product)
+    @Field(type => Product, { nullable: true })
     @ManyToMany(type => Product, product => product.assets)
     product: Product
 } 

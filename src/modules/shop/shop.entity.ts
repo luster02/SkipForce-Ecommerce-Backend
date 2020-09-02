@@ -30,7 +30,7 @@ export class Shop extends BaseEntity {
     @Column({ type: 'varchar', default: 'INACTIVE', nullable: true })
     status: string
 
-    @Field(type => [Product])
+    @Field(type => [Product], { nullable: true })
     @OneToMany(type => Product, product => product.shop, { onDelete: 'CASCADE' })
     products: Product[]
 

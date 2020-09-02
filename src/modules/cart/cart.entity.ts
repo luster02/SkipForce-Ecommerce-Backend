@@ -28,7 +28,7 @@ export class Cart extends BaseEntity {
     @JoinColumn({ name: 'customer_id' })
     customer: Customer
 
-    @Field(type => [Product])
+    @Field(type => [Product], { nullable: false })
     @ManyToMany(type => Product, product => product.cart, { onDelete: 'CASCADE', eager: true, cascade: true })
     @JoinTable({ name: 'product_cart' })
     products: Product[]

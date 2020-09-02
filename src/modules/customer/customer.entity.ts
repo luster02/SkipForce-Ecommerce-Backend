@@ -40,7 +40,7 @@ export class Customer extends BaseEntity {
     @OneToOne(type => Cart, cart => cart.customer, { cascade: true, eager: true, onDelete: 'CASCADE' })
     cart: Cart
 
-    @Field(type => [Order])
+    @Field(type => [Order], { nullable: true })
     @OneToOne(type => Order, order => order.customer, { cascade: true, eager: true, onDelete: 'CASCADE' })
     orders: Order[]
 

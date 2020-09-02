@@ -50,16 +50,16 @@ export class Product extends BaseEntity {
     @ManyToOne(type => Shop, shop => shop.products, { onDelete: 'CASCADE' })
     shop: Shop
 
-    @Field(type => [Asset])
+    @Field(type => [Asset], { nullable: true })
     @ManyToMany(type => Asset, asset => asset.product, { onDelete: 'CASCADE', eager: true, cascade: true })
     @JoinTable({ name: 'product_assets' })
     assets: Asset[]
 
-    @Field(type => Cart)
+    @Field(type => Cart, { nullable: false })
     @ManyToMany(type => Cart, cart => cart.products, { onDelete: 'CASCADE' })
     cart: Cart
 
-    @Field(type => Order)
+    @Field(type => Order, { nullable: true })
     @ManyToMany(type => Order, order => order.products, { onDelete: 'CASCADE' })
     order: Order
 }

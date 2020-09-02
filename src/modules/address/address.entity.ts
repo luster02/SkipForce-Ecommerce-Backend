@@ -40,7 +40,7 @@ export class Address extends BaseEntity {
     @JoinColumn({ name: 'customer_id' })
     customer: Customer
 
-    @Field(type => Order)
+    @Field(type => Order, { nullable: true })
     @OneToOne(type => Order, order => order.address)
     order: Order
 

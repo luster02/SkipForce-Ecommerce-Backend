@@ -18,7 +18,7 @@ export class Gallery extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Field({nullable: true})
+    @Field({ nullable: true })
     @Column({ type: 'varchar', nullable: true })
     folder: string
 
@@ -27,7 +27,7 @@ export class Gallery extends BaseEntity {
     @JoinColumn({ name: 'user_id' })
     user: User
 
-    @Field(type => [Asset])
+    @Field(type => [Asset], { nullable: true })
     @OneToMany(type => Asset, asset => asset.gallery)
     assets: Asset[]
 }
