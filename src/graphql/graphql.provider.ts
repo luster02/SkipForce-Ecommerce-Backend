@@ -3,9 +3,9 @@ import { UserModule } from '../modules/user/user.module'
 import { AuthModule } from '../modules/auth/user/auth.module'
 import { ShopModule } from '../modules/shop/shop.module'
 import { ProductModule } from '../modules/product/product.module'
-import { OrderRepository } from '../modules/order/order.repository'
+import { OrderModule } from '../modules/order/order.module'
 import { GalleryModule } from '../modules/gallery/gallery.module'
-import { CustomerResolver } from '../modules/customer/customer.resolver'
+import { CustomerModule } from '../modules/customer/customer.module'
 import { CartModule } from '../modules/cart/cart.module'
 import { CustomerAuthModule } from '../modules/auth/customer-auth/customer.auth.module'
 import { AddressModule } from '../modules/address/address.module'
@@ -19,9 +19,9 @@ export const graphQLProvider = [
             AuthModule, 
             ShopModule,
             ProductModule, 
-            OrderRepository,
+            OrderModule,
             GalleryModule, 
-            CustomerResolver,
+            CustomerModule,
             CartModule, 
             CustomerAuthModule,
             AddressModule, 
