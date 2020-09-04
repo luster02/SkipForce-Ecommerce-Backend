@@ -25,7 +25,7 @@ export class AssetResolver {
     }
 
     @Mutation(returns => MutationResult)
-    async deleteProduct(
+    async deleteAsset(
         @Args('id', { type: () => Int }) id: number
     ): Promise<MutationResult> {
         await this._assetService.delete(id)
