@@ -171,6 +171,7 @@ type Mutation {
   createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
   editUser(customerData: CustomerDetailDto!, id: Int!): MutationResult!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
+  deleteAsset(id: Int!): MutationResult!
 }
 
 input SignupDto {
