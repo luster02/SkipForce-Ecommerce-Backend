@@ -24,7 +24,7 @@ import { CustomerAuthResolver } from './customer-auth.resolver'
         return {
           secret: config.get(Configuration.JWT_SECRET_CUSTOMER),
           signOptions: {
-            expiresIn: 3600,
+            expiresIn: 14400,
           },
         };
       },
