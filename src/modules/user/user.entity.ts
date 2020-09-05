@@ -40,8 +40,8 @@ export class User extends BaseEntity {
   @OneToOne(type => Shop, shop => shop.user, { cascade: true, nullable: false, eager: true })
   shop: Shop
 
-  @Field(type => Gallery, { nullable: true })
-  @OneToOne(type => Gallery, gallery => gallery.user, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @Field(type => Gallery)
+  @OneToOne(type => Gallery, gallery => gallery.user, { eager: true, nullable: false, cascade: true })
   gallery: Gallery
 
   @Field()
