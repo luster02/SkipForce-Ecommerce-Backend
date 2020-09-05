@@ -6,14 +6,14 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express'
+import { AuthGuard } from '@nestjs/passport';
 import { AssetService } from './asset.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { multerOptions } from '../../shared/multer.storage'
-import { UserAuthGuard } from '../auth/guards/jwt.guard'
 
 
 @ApiTags('asset')
-@UseGuards(UserAuthGuard)
+@UseGuards(AuthGuard('UserStrategy'))
 @Controller('asset')
 export class AssetController {
     constructor(private readonly _assetService: AssetService) { }
@@ -36,7 +36,7 @@ export class AssetController {
     @UseInterceptors(FileInterceptor('file', multerOptions))
     @UsePipes(ValidationPipe)
     @HttpCode(201)
-    async createProduct(
+    async uploadFile(
         @Param('id', ParseIntPipe) id: number,
         @UploadedFile() file
     ): Promise<CustomResponse> {
@@ -46,7 +46,7 @@ export class AssetController {
 
     @Delete(':id')
     @HttpCode(200)
-    async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
+    async deleteAsset(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
         await this._assetService.delete(id)
         return { ok: true, data: 'deleted' }
     }

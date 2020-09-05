@@ -5,11 +5,11 @@ import {
     Patch, Delete, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { ProductDto } from './dto/product.dto';
 import { Product } from './product.entity';
-import { UserAuthGuard } from '../auth/guards/jwt.guard'
 
 @ApiTags('products')
 @Controller('product')
@@ -30,7 +30,7 @@ export class ProductController {
         return { ok: true, data: products }
     }
 
-    @UseGuards(UserAuthGuard)
+    @UseGuards(AuthGuard('UserStrategy'))
     @Post(':id')
     @UsePipes(ValidationPipe)
     @HttpCode(201)
@@ -39,7 +39,7 @@ export class ProductController {
         return { ok: true, data: product }
     }
 
-    @UseGuards(UserAuthGuard)
+    @UseGuards(AuthGuard('UserStrategy'))
     @Patch(':id')
     @HttpCode(200)
     async editProduct(@Param('id', ParseIntPipe) id: number, @Body() productData: Product): Promise<CustomResponse> {
@@ -47,7 +47,7 @@ export class ProductController {
         return { ok: true, data: 'updated' }
     }
 
-    @UseGuards(UserAuthGuard)
+    @UseGuards(AuthGuard('UserStrategy'))
     @Patch('/push/:id')
     @HttpCode(200)
     async pushAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -55,7 +55,7 @@ export class ProductController {
         return { ok: true, data: 'pushed' }
     }
 
-    @UseGuards(UserAuthGuard)
+    @UseGuards(AuthGuard('UserStrategy'))
     @Patch('/pull/:id')
     @HttpCode(200)
     async pullAssets(@Param('id', ParseIntPipe) id: number, @Body() assets: any): Promise<CustomResponse> {
@@ -63,7 +63,7 @@ export class ProductController {
         return { ok: true, data: 'pulled' }
     }
 
-    @UseGuards(UserAuthGuard)
+    @UseGuards(AuthGuard('UserStrategy'))
     @Delete(':id')
     @HttpCode(200)
     async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {

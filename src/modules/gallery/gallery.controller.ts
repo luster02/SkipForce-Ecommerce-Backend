@@ -4,13 +4,13 @@ import {
     Body, ValidationPipe, UsePipes, Post, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { GalleryService } from './gallery.service'
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { GalleryDto } from './dto/gallery.dto';
-import { UserAuthGuard } from '../auth/guards/jwt.guard'
 
 @ApiTags('gallery')
-@UseGuards(UserAuthGuard)
+@UseGuards(AuthGuard('UserStrategy'))
 @Controller('gallery')
 export class GalleryController {
     constructor(private readonly _galleryService: GalleryService) { }

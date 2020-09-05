@@ -6,13 +6,13 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { UserAuthGuard } from '../auth/guards/jwt.guard'
+import { AuthGuard } from '@nestjs/passport';
 import { UserDetailDto } from './dto/user.detail.dto';
 import { GetUser } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/user/jwt-payload.interface'
 
 @ApiTags('user')
-@UseGuards(UserAuthGuard)
+@UseGuards(AuthGuard('UserStrategy'))
 @Controller('users')
 export class UserController {
   constructor(private readonly _userService: UserService) { }

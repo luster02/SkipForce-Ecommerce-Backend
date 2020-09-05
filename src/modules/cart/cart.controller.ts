@@ -4,11 +4,11 @@ import {
     Body, Post, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { CartService } from './cart.service'
 import { CustomResponse } from '../../interfaces/Response.interface';
-import { CustomerAuthGuard } from '../auth/guards/jwt.guard'
 
-@UseGuards(CustomerAuthGuard)
+@UseGuards(AuthGuard('CustomerStrategy'))
 @ApiTags('cart')
 @Controller('cart')
 export class CartController {

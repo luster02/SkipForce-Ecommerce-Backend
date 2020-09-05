@@ -4,13 +4,13 @@ import {
     Body, UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { AddressService } from './address.service';
 import { CustomResponse } from '../../interfaces/Response.interface';
 import { AddressDto } from './dto/address.dto';
-import { CustomerAuthGuard } from '../auth/guards/jwt.guard'
 
 @ApiTags('address')
-@UseGuards(CustomerAuthGuard)
+@UseGuards(AuthGuard('CustomerStrategy'))
 @Controller('address')
 export class AddressController {
     constructor(private readonly _addressService: AddressService) { }
