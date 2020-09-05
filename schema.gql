@@ -115,7 +115,7 @@ type User {
   password: String!
   details: UserDetails!
   shop: Shop!
-  gallery: Gallery
+  gallery: Gallery!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
