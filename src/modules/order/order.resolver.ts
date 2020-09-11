@@ -34,7 +34,7 @@ export class OrderResolver {
 
     @UseGuards(CustomerAuthGuard)
     @Mutation(returns => MutationResult)
-    async updateStatus(
+    async updateOrderStatus(
         @Args('id', { type: () => Int }) id: number,
         @Args('status') status: string
     ): Promise<MutationResult> {

@@ -33,7 +33,7 @@ export class CustomerResolver {
     }
 
     @Mutation(returns => MutationResult)
-    async editUser(
+    async editCustomer(
         @Args('id', { type: () => Int }) id: number,
         @Args('customerData') customerData: CustomerDetailDto
     ): Promise<MutationResult> {
@@ -42,7 +42,7 @@ export class CustomerResolver {
     }
 
     @Mutation(returns => MutationResult)
-    async deleteUser(
+    async deleteCustomer(
         @Args('id', { type: () => Int }) id: number
     ): Promise<MutationResult> {
         await this._customerService.delete(id)

@@ -39,14 +39,14 @@ export class CustomerController {
 
     @Patch(':id')
     @HttpCode(200)
-    async editUser(@Param('id', ParseIntPipe) id: number, @Body() body: CustomerDetail): Promise<CustomResponse> {
+    async editCustomer(@Param('id', ParseIntPipe) id: number, @Body() body: CustomerDetail): Promise<CustomResponse> {
         await this._customerService.update(id, body)
         return { ok: true, data: 'updated' }
     }
 
     @Delete(':id')
     @HttpCode(200)
-    async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
+    async deleteCustomer(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
         await this._customerService.delete(id)
         return { ok: true, data: 'deleted' }
     }
