@@ -103,7 +103,6 @@ type Shop {
   id: Float!
   name: String
   description: String
-  status: String
   products: [Product!]
   user: User!
 }
@@ -134,7 +133,7 @@ type UserResponse {
 type Query {
   user(id: Int!): User!
   currentUser: User!
-  getShop(id: Int!): Shop!
+  getShop: Shop!
   getProduct(id: Int!): Product!
   getAllProducts: [Product!]!
   getCart(id: Int!): Cart!
@@ -166,10 +165,11 @@ type Mutation {
   signupCustomer(userData: SignupDto!): MutationResult!
   signinCustomer(userData: SigninDto!): UserResponse!
   createOrder(id: Int!): MutationResult!
-  updateStatus(status: String!, id: Int!): MutationResult!
+  updateOrderStatus(status: String!, id: Int!): MutationResult!
   deleteGallery(id: Int!): MutationResult!
   createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
-  editUser(customerData: CustomerDetailDto!, id: Int!): MutationResult!
+  editCustomer(customerData: CustomerDetailDto!, id: Int!): MutationResult!
+  deleteCustomer(id: Int!): MutationResult!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
   deleteAsset(id: Int!): MutationResult!
 }
@@ -193,7 +193,6 @@ input UserDetailDto {
 input ShopDto {
   name: String!
   description: String!
-  status: String!
 }
 
 input ProductDto {
