@@ -11,8 +11,8 @@ export class ShopResolver {
     constructor(private readonly _shopService: ShopService) { }
 
     @Query(returns => Shop)
-    async getShop(@Args('id', { type: () => Int }) id: number): Promise<Shop> {
-        return await this._shopService.get(id)
+    async getShop(): Promise<Shop> {
+        return await this._shopService.get()
     }
 
     @UseGuards(UserAuthGuard)

@@ -15,16 +15,9 @@ export class ShopController {
 
     @Get(':id')
     @HttpCode(200)
-    async getShop(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
-        const shop = await this._shopService.get(id)
+    async getShop(): Promise<CustomResponse> {
+        const shop = await this._shopService.get()
         return { ok: true, data: shop }
-    }
-
-    @Get()
-    @HttpCode(200)
-    async getAllShops(): Promise<CustomResponse> {
-        const shops = await this._shopService.getAll()
-        return { ok: true, data: shops }
     }
 
     @UseGuards(AuthGuard('UserStrategy'))
