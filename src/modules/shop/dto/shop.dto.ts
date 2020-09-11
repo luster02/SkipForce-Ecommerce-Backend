@@ -10,8 +10,4 @@ export class ShopDto {
     @Field()
     @IsNotEmpty()
     description: string
-
-    @Field()
-    @IsNotEmpty()
-    status: string
 }

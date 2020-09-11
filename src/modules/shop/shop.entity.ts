@@ -26,10 +26,6 @@ export class Shop extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     description: string
 
-    @Field({ nullable: true })
-    @Column({ type: 'varchar', default: 'INACTIVE', nullable: true })
-    status: string
-
     @Field(type => [Product], { nullable: true })
     @OneToMany(type => Product, product => product.shop, { onDelete: 'CASCADE' })
     products: Product[]
