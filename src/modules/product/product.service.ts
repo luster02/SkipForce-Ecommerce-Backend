@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Between } from 'typeorm'
 import { ProductRepository } from './product.repository';
 import { Product } from './product.entity';
 import { ProductDto } from './dto/product.dto';
@@ -20,6 +21,30 @@ export class ProductService {
 
     async getAll(): Promise<Product[]> {
         const products: Product[] = await this._productRepository.find()
+        if (!products) throw new NotFoundException();
+        return products
+    }
+
+    async getByName(name: string): Promise<Product[]> {
+        const products: Product[] = await this._productRepository.find({ name: Like(`%${name}%`) })
+        if (!products) throw new NotFoundException();
+        return products
+    }
+
+    async getByDescription(description: string): Promise<Product[]> {
+        const products: Product[] = await this._productRepository.find({ description: Like(`%${description}%`) })
+        if (!products) throw new NotFoundException();
+        return products
+    }
+
+    async getByCategory(category: string): Promise<Product[]> {
+        const products: Product[] = await this._productRepository.find({ category: category })
+        if (!products) throw new NotFoundException();
+        return products
+    }
+
+    async getByPriceRange(rangeA: number, rangeB: number): Promise<Product[]> {
+        const products: Product[] = await this._productRepository.find({ price: Between(rangeA, rangeB) })
         if (!products) throw new NotFoundException();
         return products
     }

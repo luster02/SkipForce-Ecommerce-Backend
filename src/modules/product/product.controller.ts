@@ -30,6 +30,34 @@ export class ProductController {
         return { ok: true, data: products }
     }
 
+    @Get(':name')
+    @HttpCode(200)
+    async getByName(@Param('name') name: string): Promise<CustomResponse> {
+        const products = await this._productService.getByName(name)
+        return { ok: true, data: products }
+    }
+
+    @Get(':description')
+    @HttpCode(200)
+    async getByDescription(@Param('description') description: string): Promise<CustomResponse> {
+        const products = await this._productService.getByDescription(description)
+        return { ok: true, data: products }
+    }
+
+    @Get(':category')
+    @HttpCode(200)
+    async getByCategory(@Param('category') category: string): Promise<CustomResponse> {
+        const products = await this._productService.getByCategory(category)
+        return { ok: true, data: products }
+    }
+
+    @Get(':rangeA/:rangeB')
+    @HttpCode(200)
+    async getByPriceRange(@Param('rangeA') rangeA: number, @Param('rangeB') rangeB: number): Promise<CustomResponse> {
+        const products = await this._productService.getByPriceRange(rangeA, rangeB)
+        return { ok: true, data: products }
+    }
+
     @UseGuards(AuthGuard('UserStrategy'))
     @Post(':id')
     @UsePipes(ValidationPipe)

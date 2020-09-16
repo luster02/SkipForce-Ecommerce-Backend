@@ -22,6 +22,35 @@ export class ProductResolver {
         return await this._productService.getAll()
     }
 
+    @Query(returns => [Product])
+    async getProductsByName(
+        @Args('name') name: string
+    ): Promise<Product[]> {
+        return await this._productService.getByName(name)
+    }
+
+    @Query(returns => [Product])
+    async getProductsByDescription(
+        @Args('description') description: string
+    ): Promise<Product[]> {
+        return await this._productService.getByDescription(description)
+    }
+
+    @Query(returns => [Product])
+    async getProductsByCategory(
+        @Args('category') category: string
+    ): Promise<Product[]> {
+        return await this._productService.getByCategory(category)
+    }
+
+    @Query(returns => [Product])
+    async getProductsByPriceRange(
+        @Args('rangeA') rangeA: number,
+        @Args('rangeB') rangeB: number
+    ): Promise<Product[]> {
+        return await this._productService.getByPriceRange(rangeA, rangeB)
+    }
+
     @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async createProduct(
