@@ -10,22 +10,24 @@ import { CartModule } from '../modules/cart/cart.module'
 import { CustomerAuthModule } from '../modules/auth/customer-auth/customer.auth.module'
 import { AddressModule } from '../modules/address/address.module'
 import { AssetModule } from '../modules/asset/asset.module'
+import { BannerModule } from '../modules/banner/banner.module'
 
 export const graphQLProvider = [
     GraphQLModule.forRoot({
         autoSchemaFile: 'schema.gql',
         include: [
-            UserModule, 
-            AuthModule, 
+            UserModule,
+            AuthModule,
             ShopModule,
-            ProductModule, 
+            ProductModule,
             OrderModule,
-            GalleryModule, 
+            GalleryModule,
             CustomerModule,
-            CartModule, 
+            CartModule,
             CustomerAuthModule,
-            AddressModule, 
-            AssetModule
+            AddressModule,
+            AssetModule,
+            BannerModule
         ],
         context: ({ req }) => ({ req })
     })

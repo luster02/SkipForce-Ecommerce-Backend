@@ -19,6 +19,7 @@ import { CustomerAuthModule } from './modules/auth/customer-auth/customer.auth.m
 import { CartModule } from './modules/cart/cart.module';
 import { OrderModule } from './modules/order/order.module';
 import { AddressModule } from './modules/address/address.module';
+import { BannerModule } from './modules/banner/banner.module';
 
 @Module({
   controllers: [AppController],
@@ -39,7 +40,8 @@ import { AddressModule } from './modules/address/address.module';
     CustomerAuthModule,
     CartModule,
     OrderModule,
-    AddressModule
+    AddressModule,
+    BannerModule
   ],
 })
 export class AppModule {
