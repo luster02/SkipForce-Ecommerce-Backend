@@ -23,6 +23,16 @@ type Gallery {
   assets: [Asset!]
 }
 
+type Banner {
+  id: Float!
+  title: String!
+  description: String!
+  redirect: String!
+  asset: Asset
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Asset {
   id: Float!
   url: String!
@@ -31,6 +41,7 @@ type Asset {
   updatedAt: DateTime!
   gallery: Gallery!
   product: Product
+  banner: Banner
 }
 
 type CustomerDetail {
@@ -136,6 +147,10 @@ type Query {
   getShop: Shop!
   getProduct(id: Int!): Product!
   getAllProducts: [Product!]!
+  getProductByName(name: String!): [Product!]!
+  getProductByDescription(description: String!): [Product!]!
+  getProductByCategory(category: String!): [Product!]!
+  getProductByPriceRange(rangeB: Float!, rangeA: Float!): [Product!]!
   getCart(id: Int!): Cart!
   getOrder(id: Int!): Order!
   getAllOrders: [Order!]!
@@ -146,6 +161,8 @@ type Query {
   getAddress(id: Int!): Address!
   getAsset(id: Int!): Asset!
   getAllAssets(gallery_id: Int!): [Asset!]!
+  getBanner(id: Int!): Banner!
+  getAllBanners: [Banner!]!
 }
 
 type Mutation {
@@ -172,6 +189,11 @@ type Mutation {
   deleteCustomer(id: Int!): MutationResult!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
   deleteAsset(id: Int!): MutationResult!
+  createBanner(bannerData: BannerDto!): MutationResult!
+  updateBanner(bannerData: BannerDto!, id: Int!): MutationResult!
+  addAsset(asset: Float!, id: Int!): MutationResult!
+  removeAsset(id: Int!): MutationResult!
+  deleteBanner(id: Int!): MutationResult!
 }
 
 input SignupDto {
@@ -217,4 +239,10 @@ input AddressDto {
   number: Float!
   postalCode: Float!
   city: String!
+}
+
+input BannerDto {
+  title: String!
+  description: String!
+  redirect: String!
 }

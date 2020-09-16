@@ -1,15 +1,16 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class mg091599330375799 implements MigrationInterface {
-    name = 'mg091599330375799'
+export class mg101600218408850 implements MigrationInterface {
+    name = 'mg101600218408850'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "customer_details" ("id" SERIAL NOT NULL, "name" character varying, "lastname" character varying, "phone" character varying, "created_at" TIMESTAMP DEFAULT now(), "updated_at" TIMESTAMP DEFAULT now(), "customer_id" integer, CONSTRAINT "REL_30c295036da7b372bb834becca" UNIQUE ("customer_id"), CONSTRAINT "PK_ca144d4b855fe08c813815bb2a9" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user_details" ("id" SERIAL NOT NULL, "name" character varying(50), "lastname" character varying, "created_at" TIMESTAMP DEFAULT now(), "updated_at" TIMESTAMP DEFAULT now(), "user_id" integer, CONSTRAINT "REL_ef1a1915f99bcf7a87049f7449" UNIQUE ("user_id"), CONSTRAINT "PK_fb08394d3f499b9e441cab9ca51" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "banner" ("id" SERIAL NOT NULL, "title" character varying(60) NOT NULL, "description" character varying(150) NOT NULL, "redirect" character varying, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "asset_id" integer, CONSTRAINT "REL_828dc6d2944884d50f76c74cf5" UNIQUE ("asset_id"), CONSTRAINT "PK_6d9e2570b3d85ba37b681cd4256" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "assets" ("id" SERIAL NOT NULL, "url" character varying NOT NULL, "public_id" character varying NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "galleryId" integer, CONSTRAINT "PK_da96729a8b113377cfb6a62439c" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "gallery" ("id" SERIAL NOT NULL, "folder" character varying, "user_id" integer, CONSTRAINT "REL_7d957482bdc782cacb0635e455" UNIQUE ("user_id"), CONSTRAINT "PK_65d7a1ef91ddafb3e7071b188a0" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "users" ("id" SERIAL NOT NULL, "username" character varying(25) NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_fe0bb3f6520ee0469504521e710" UNIQUE ("username"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "shops" ("id" SERIAL NOT NULL, "name" character varying(30), "description" character varying, "status" character varying DEFAULT 'INACTIVE', "user_id" integer, CONSTRAINT "REL_bb9c758dcc60137e56f6fee72f" UNIQUE ("user_id"), CONSTRAINT "PK_3c6aaa6607d287de99815e60b96" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "shops" ("id" SERIAL NOT NULL, "name" character varying(30), "description" character varying, "user_id" integer, CONSTRAINT "REL_bb9c758dcc60137e56f6fee72f" UNIQUE ("user_id"), CONSTRAINT "PK_3c6aaa6607d287de99815e60b96" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "orders" ("id" SERIAL NOT NULL, "totlaPrice" numeric DEFAULT 0, "status" character varying DEFAULT 'incomplete', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "address_id" integer, "customer_id" integer, CONSTRAINT "REL_d39c53244703b8534307adcd07" UNIQUE ("address_id"), CONSTRAINT "REL_772d0ce0473ac2ccfa26060dbe" UNIQUE ("customer_id"), CONSTRAINT "PK_710e2d4957aa5878dfe94e4ac2f" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "products" ("id" SERIAL NOT NULL, "name" character varying(30) NOT NULL, "description" character varying NOT NULL, "price" integer NOT NULL, "category" character varying NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "shopId" integer, CONSTRAINT "PK_0806c755e0aca124e67c0cf6d7d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "cart" ("id" SERIAL NOT NULL, "totlaPrice" numeric DEFAULT 0, "customer_id" integer, CONSTRAINT "REL_242205c81c1152fab1b6e84847" UNIQUE ("customer_id"), CONSTRAINT "PK_c524ec48751b9b5bcfbf6e59be7" PRIMARY KEY ("id"))`);
@@ -26,6 +27,7 @@ export class mg091599330375799 implements MigrationInterface {
         await queryRunner.query(`CREATE INDEX "IDX_5f2d0566abad474187e27a2780" ON "product_cart" ("productsId") `);
         await queryRunner.query(`ALTER TABLE "customer_details" ADD CONSTRAINT "FK_30c295036da7b372bb834beccab" FOREIGN KEY ("customer_id") REFERENCES "customer"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user_details" ADD CONSTRAINT "FK_ef1a1915f99bcf7a87049f74494" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "banner" ADD CONSTRAINT "FK_828dc6d2944884d50f76c74cf51" FOREIGN KEY ("asset_id") REFERENCES "assets"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "assets" ADD CONSTRAINT "FK_82b69b671134f68d8a686786ab7" FOREIGN KEY ("galleryId") REFERENCES "gallery"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "gallery" ADD CONSTRAINT "FK_7d957482bdc782cacb0635e4551" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "shops" ADD CONSTRAINT "FK_bb9c758dcc60137e56f6fee72f7" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
@@ -57,6 +59,7 @@ export class mg091599330375799 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "shops" DROP CONSTRAINT "FK_bb9c758dcc60137e56f6fee72f7"`);
         await queryRunner.query(`ALTER TABLE "gallery" DROP CONSTRAINT "FK_7d957482bdc782cacb0635e4551"`);
         await queryRunner.query(`ALTER TABLE "assets" DROP CONSTRAINT "FK_82b69b671134f68d8a686786ab7"`);
+        await queryRunner.query(`ALTER TABLE "banner" DROP CONSTRAINT "FK_828dc6d2944884d50f76c74cf51"`);
         await queryRunner.query(`ALTER TABLE "user_details" DROP CONSTRAINT "FK_ef1a1915f99bcf7a87049f74494"`);
         await queryRunner.query(`ALTER TABLE "customer_details" DROP CONSTRAINT "FK_30c295036da7b372bb834beccab"`);
         await queryRunner.query(`DROP INDEX "IDX_5f2d0566abad474187e27a2780"`);
@@ -77,6 +80,7 @@ export class mg091599330375799 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "users"`);
         await queryRunner.query(`DROP TABLE "gallery"`);
         await queryRunner.query(`DROP TABLE "assets"`);
+        await queryRunner.query(`DROP TABLE "banner"`);
         await queryRunner.query(`DROP TABLE "user_details"`);
         await queryRunner.query(`DROP TABLE "customer_details"`);
     }
