@@ -11,12 +11,12 @@ import { CustomerDetail } from './customer.detail.entity';
 import { GetUser } from '../auth/decorators/user.decorator'
 import { IJwtPayload } from '../auth/customer-auth/jwt-payload.interface'
 
-@UseGuards(AuthGuard('CustomerStrategy'))
 @ApiTags('customer')
 @Controller('customer')
 export class CustomerController {
     constructor(private readonly _customerService: CustomerService) { }
 
+    @UseGuards(AuthGuard('UserStrategy'))
     @Get(':id')
     @HttpCode(200)
     async getCustomer(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
@@ -24,12 +24,14 @@ export class CustomerController {
         return { ok: true, data: customer }
     }
 
+    @UseGuards(AuthGuard('CustomerStrategy'))
     @Get('/current')
     async getCurrentCustomer(@GetUser() customer: IJwtPayload): Promise<CustomResponse> {
         const data = await this._customerService.get(customer.id)
         return { ok: true, data }
     }
 
+    @UseGuards(AuthGuard('UserStrategy'))
     @Get()
     @HttpCode(200)
     async getAllCustomers(): Promise<CustomResponse> {
@@ -37,6 +39,7 @@ export class CustomerController {
         return { ok: true, data: customers }
     }
 
+    @UseGuards(AuthGuard('CustomerStrategy'))
     @Patch(':id')
     @HttpCode(200)
     async editCustomer(@Param('id', ParseIntPipe) id: number, @Body() body: CustomerDetail): Promise<CustomResponse> {
@@ -44,6 +47,7 @@ export class CustomerController {
         return { ok: true, data: 'updated' }
     }
 
+    @UseGuards(AuthGuard('CustomerStrategy'))
     @Delete(':id')
     @HttpCode(200)
     async deleteCustomer(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {

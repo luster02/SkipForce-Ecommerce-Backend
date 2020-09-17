@@ -9,7 +9,7 @@ import { UseGuards } from '@nestjs/common'
 export class OrderResolver {
     constructor(private readonly _orderService: OrderService) { }
 
-    @UseGuards(UserAuthGuard || CustomerAuthGuard)
+    @UseGuards(CustomerAuthGuard)
     @Query(returns => Order)
     async getOrder(
         @Args('id', { type: () => Int }) id: number
@@ -17,9 +17,23 @@ export class OrderResolver {
         return await this._orderService.get(id)
     }
 
-    @UseGuards(UserAuthGuard || CustomerAuthGuard)
+    @UseGuards(CustomerAuthGuard)
     @Query(returns => [Order])
     async getAllOrders(): Promise<Order[]> {
+        return await this._orderService.getAll()
+    }
+
+    @UseGuards(UserAuthGuard)
+    @Query(returns => Order)
+    async getOrderFromAdmin(
+        @Args('id', { type: () => Int }) id: number
+    ): Promise<Order> {
+        return await this._orderService.get(id)
+    }
+
+    @UseGuards(UserAuthGuard)
+    @Query(returns => [Order])
+    async getAllOrdersFromAdmin(): Promise<Order[]> {
         return await this._orderService.getAll()
     }
 
@@ -32,7 +46,7 @@ export class OrderResolver {
         return { success: true }
     }
 
-    @UseGuards(CustomerAuthGuard)
+    @UseGuards(UserAuthGuard)
     @Mutation(returns => MutationResult)
     async updateOrderStatus(
         @Args('id', { type: () => Int }) id: number,

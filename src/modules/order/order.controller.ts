@@ -13,7 +13,7 @@ import { CustomResponse } from '../../interfaces/Response.interface';
 export class OrderController {
     constructor(private readonly _orderService: OrderService) { }
 
-    @UseGuards(AuthGuard('UserStrategy') || AuthGuard('CustomerStrategy'))
+    @UseGuards(AuthGuard('CustomerStrategy'))
     @Get(':id')
     @HttpCode(200)
     async getOrder(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
@@ -21,10 +21,26 @@ export class OrderController {
         return { ok: true, data: order }
     }
 
-    @UseGuards(AuthGuard('UserStrategy') || AuthGuard('CustomerStrategy'))
+    @UseGuards(AuthGuard('UserStrategy'))
+    @Get('/admin/:id')
+    @HttpCode(200)
+    async getOrderFromAdmin(@Param('id', ParseIntPipe) id: number): Promise<CustomResponse> {
+        const order = await this._orderService.get(id)
+        return { ok: true, data: order }
+    }
+
+    @UseGuards(AuthGuard('CustomerStrategy'))
     @Get()
     @HttpCode(200)
     async getAll(): Promise<CustomResponse> {
+        const oreders = await this._orderService.getAll()
+        return { ok: true, data: oreders }
+    }
+
+    @UseGuards(AuthGuard('UserStrategy'))
+    @Get()
+    @HttpCode(200)
+    async getAllFromAdmin(): Promise<CustomResponse> {
         const oreders = await this._orderService.getAll()
         return { ok: true, data: oreders }
     }
