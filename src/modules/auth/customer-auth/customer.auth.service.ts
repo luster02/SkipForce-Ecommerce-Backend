@@ -11,7 +11,7 @@ import { CustomerAuthRepository } from './customer.auth.repository';
 import { SignupDto, SigninDto } from '../dto';
 import { Customer } from '../../customer/customer.entity';
 import { IJwtPayload } from './jwt-payload.interface';
-
+import { RoleType } from '../../../shared/roletype.enum'
 
 @Injectable()
 export class CustomerAuthService {
@@ -39,6 +39,7 @@ export class CustomerAuthService {
             id: customer.id,
             email: customer.email,
             username: customer.username,
+            roles: [RoleType.CUSTOMER],
         };
 
         const token = await this._jwtService.sign(payload);
