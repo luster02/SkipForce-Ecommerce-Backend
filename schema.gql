@@ -147,10 +147,10 @@ type Query {
   getShop: Shop!
   getProduct(id: Int!): Product!
   getAllProducts: [Product!]!
-  getProductByName(name: String!): [Product!]!
-  getProductByDescription(description: String!): [Product!]!
-  getProductByCategory(category: String!): [Product!]!
-  getProductByPriceRange(rangeB: Float!, rangeA: Float!): [Product!]!
+  getProductsByName(name: String!): [Product!]!
+  getProductsByDescription(description: String!): [Product!]!
+  getProductsByCategory(category: String!): [Product!]!
+  getProductsByPriceRange(rangeB: Float!, rangeA: Float!): [Product!]!
   getCart(id: Int!): Cart!
   getOrder(id: Int!): Order!
   getAllOrders: [Order!]!
@@ -187,6 +187,8 @@ type Mutation {
   createFoler(galleryData: GalleryDto!, id: Int!): MutationResult!
   editCustomer(customerData: CustomerDetailDto!, id: Int!): MutationResult!
   deleteCustomer(id: Int!): MutationResult!
+  editCustomerFromAdmin(customerData: CustomerDetailDto!, id: Int!): MutationResult!
+  deleteCustomerFromAdmin(id: Int!): MutationResult!
   updateAddress(addresData: AddressDto!, id: Int!): MutationResult!
   deleteAsset(id: Int!): MutationResult!
   createBanner(bannerData: BannerDto!): MutationResult!
