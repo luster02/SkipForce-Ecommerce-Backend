@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { CustomerAuthService } from './customer.auth.service';
-import { CustomerAuthController } from './customer.auth.controller';
 import { CustomerAuthRepository } from './customer.auth.repository'
 import { CustomerJwtStrategy } from './strategies/jwt.strategy'
 import { ConfigService } from '../../../config/config.service';
@@ -30,7 +29,6 @@ import { CustomerAuthResolver } from './customer-auth.resolver'
       },
     }),
   ],
-  controllers: [CustomerAuthController],
   providers: [CustomerAuthService, ConfigService, CustomerJwtStrategy, CustomerAuthResolver],
   exports: [CustomerJwtStrategy, PassportModule]
 })

@@ -10,6 +10,7 @@ import {
 import { ObjectType, Field } from '@nestjs/graphql';
 import { User } from '../user/user.entity';
 import { Product } from '../product/product.entity';
+import { Asset } from '../asset/asset.entity'
 
 @ObjectType()
 @Entity('shops')
@@ -34,4 +35,8 @@ export class Shop extends BaseEntity {
     @OneToOne(type => User, user => user.shop, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'user_id' })
     user: User
+
+    @Field(type => Asset, { nullable: true })
+    @OneToOne(type=> Asset, )
+    logo:Asset
 }
