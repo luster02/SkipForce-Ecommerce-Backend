@@ -29,4 +29,18 @@ export class ShopService {
         if (!shopExist) throw new NotFoundException();
         await this._shopRepository.delete(id)
     }
+
+    async updateLogo(id: number, logo: number): Promise<void> {
+        const shop: Shop = await this._shopRepository.findOne(id)
+        if (!shop) throw new NotFoundException();
+        await this._shopRepository.createQueryBuilder()
+            .relation(Shop, 'logo').of(shop).add(logo)
+    }
+
+    async deleteLogo(id: number) {
+        const shop: Shop = await this._shopRepository.findOne(id)
+        if (!shop) throw new NotFoundException();
+        shop.logo = null;
+        await this._shopRepository.save(shop)
+    }
 }

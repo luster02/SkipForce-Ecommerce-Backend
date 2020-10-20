@@ -25,4 +25,23 @@ export class ShopResolver {
         return { success: true }
     }
 
+    @UseGuards(UserAuthGuard)
+    @Mutation(returns => MutationResult)
+    async updateLogo(
+        @Args('id', { type: () => Int }) id: number,
+        @Args('logo', { type: () => Int }) logo: number,
+    ): Promise<MutationResult> {
+        await this._shopService.updateLogo(id, logo)
+        return { success: true }
+    }
+
+    @UseGuards(UserAuthGuard)
+    @Mutation(returns => MutationResult)
+    async deleteLogo(
+        @Args('id', { type: () => Int }) id: number,
+    ): Promise<MutationResult> {
+        await this._shopService.deleteLogo(id)
+        return { success: true }
+    }
+
 }
