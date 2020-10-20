@@ -25,10 +25,10 @@ export class UserResolver {
 
     @Mutation(returns => MutationResult)
     async updateUser(
-        @Args('id', { type: () => Int }) id: number,
+        @CurrentUserGraph() user: IJwtPayload,
         @Args('userData') userData: UserDetailDto
     ): Promise<MutationResult> {
-        await this._userService.update(id, userData)
+        await this._userService.update(user.id, userData)
         return { success: true }
     }
 
