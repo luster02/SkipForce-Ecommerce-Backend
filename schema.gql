@@ -31,6 +31,7 @@ type Asset {
   updatedAt: DateTime!
   gallery: Gallery!
   product: Product
+  shop: Shop
 }
 
 type CustomerDetail {
@@ -105,6 +106,7 @@ type Shop {
   description: String
   products: [Product!]
   user: User!
+  logo: Asset
 }
 
 type User {
@@ -157,9 +159,11 @@ type Query {
 type Mutation {
   signup(userData: SignupDto!): MutationResult!
   signin(userData: SigninDto!): UserResponse!
-  updateUser(userData: UserDetailDto!, id: Int!): MutationResult!
+  updateUser(userData: UserDetailDto!): MutationResult!
   deleteUser(id: Int!): MutationResult!
   updateShop(shopData: ShopDto!, id: Int!): MutationResult!
+  updateLogo(logo: Int!, id: Int!): MutationResult!
+  deleteLogo(id: Int!): MutationResult!
   createProduct(productData: ProductDto!, id: Int!): MutationResult!
   editProduct(productData: ProductDto!, id: Int!): MutationResult!
   pushAssets(assets: [Int!]!, id: Int!): MutationResult!
