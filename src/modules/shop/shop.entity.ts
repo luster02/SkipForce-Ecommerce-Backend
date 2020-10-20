@@ -37,6 +37,6 @@ export class Shop extends BaseEntity {
     user: User
 
     @Field(type => Asset, { nullable: true })
-    @OneToOne(type=> Asset, )
-    logo:Asset
+    @OneToOne(type => Asset, asset => asset.shop, { cascade: true, nullable: false, eager: true })
+    logo: Asset
 }

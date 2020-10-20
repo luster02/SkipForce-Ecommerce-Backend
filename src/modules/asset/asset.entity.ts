@@ -6,11 +6,14 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     ManyToOne,
-    ManyToMany
+    ManyToMany,
+    JoinColumn,
+    OneToOne
 } from 'typeorm'
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Gallery } from '../gallery/gallery.entity'
 import { Product } from '../product/product.entity';
+import { Shop } from '../shop/shop.entity';
 
 @ObjectType()
 @Entity('assets')
@@ -42,4 +45,9 @@ export class Asset extends BaseEntity {
     @Field(type => Product, { nullable: true })
     @ManyToMany(type => Product, product => product.assets)
     product: Product
+
+    @Field(type => Shop, { nullable: true })
+    @OneToOne(type => Shop, shop => shop.logo, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'shop_id' })
+    shop: Shop
 } 
