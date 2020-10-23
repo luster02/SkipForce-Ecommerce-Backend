@@ -34,7 +34,7 @@ export class ShopService {
         const shop: Shop = await this._shopRepository.findOne(id)
         if (!shop) throw new NotFoundException();
         await this._shopRepository.createQueryBuilder()
-            .relation(Shop, 'logo').of(shop).add(logo)
+            .relation(Shop, 'logo').of(shop).set(logo)
     }
 
     async deleteLogo(id: number) {
